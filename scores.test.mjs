@@ -28,9 +28,9 @@ test('deduplicates usernames and validates configuration',()=>{
  assert.throws(()=>validateConfig({...config,eventId:'11'}),/eventId/);
 });
 test('rosters use configured profile IDs and retain player names and IGL',async()=>{
- const get=async u=>u.includes('currentevent')?{id:11,name:'Champions'}:u.includes('/position')?1:u.includes('/fantasyteam/')?{players:[{isStarter:true,isIgl:true,eventPlayer:{player:{name:'something'},team:{shortName:'PRX'}}}]}:[{username:'alice',totalPoints:0}];
+ const get=async u=>u.includes('currentevent')?{id:11,name:'Champions'}:u.includes('/position')?1:u.includes('/fantasyteam/')?{players:[{isStarter:true,isIgl:true,eventPlayer:{player:{name:'something'},totalEventPoints:{totalPoints:37},team:{shortName:'PRX'}}}]}:[{username:'alice',totalPoints:0}];
  const result=await collectScores({...config,usernames:['alice'],teamUrls:{alice:'https://www.valorantfantasyleague.net/team/56251'}},get);
- assert.equal(result.players[0].rosterStatus,'ok');assert.deepEqual(result.players[0].roster,[{name:'something',team:'PRX',isIgl:true,isStarter:true}]);
+ assert.equal(result.players[0].rosterStatus,'ok');assert.deepEqual(result.players[0].roster,[{name:'something',points:37,team:'PRX',isIgl:true,isStarter:true}]);
 });
 test('missing profile links do not trigger roster requests',async()=>{
  const result=await collectScores({...config,usernames:['alice']},async u=>u.includes('currentevent')?{id:11,name:'Champions'}:u.includes('/position')?1:[{username:'alice',totalPoints:4}]);

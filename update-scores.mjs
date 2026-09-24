@@ -63,7 +63,7 @@ export async function collectScores(input, get = getJSON) {
       player.roster = team.players.map(p => {
         const name = p.eventPlayer?.player?.name;
         if (typeof name !== 'string' || !name.trim()) throw new Error('Missing player name');
-        return {name, team:p.eventPlayer?.team?.shortName || '', isIgl:p.isIgl === true, isStarter:p.isStarter === true};
+        return {name, points:Number.isFinite(p.eventPlayer?.totalEventPoints?.totalPoints) ? p.eventPlayer.totalEventPoints.totalPoints : null, team:p.eventPlayer?.team?.shortName || '', isIgl:p.isIgl === true, isStarter:p.isStarter === true};
       });
       player.rosterStatus = player.roster.length ? 'ok' : 'empty';
     } catch (error) { console.warn(`Roster unavailable for ${player.username}: ${error.message}`); }

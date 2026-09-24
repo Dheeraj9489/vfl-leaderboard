@@ -8,6 +8,7 @@ function element(tag, className, text) {
   return node;
 }
 function render(data) {
+  const expanded = new Set([...document.querySelectorAll('.roster-toggle[aria-expanded="true"]')].map(button=>button.dataset.username));
   snapshot = data;
   document.title = `${data.name} · Valorant Fantasy`;
   if (data.name !== 'The Friends League') $('title').textContent = data.name;
@@ -32,20 +33,26 @@ function render(data) {
     const info = element('div','manager-text');
     const link = element('button','username roster-toggle',player.username);
     link.type = 'button';
+    link.dataset.username = player.username;
     link.setAttribute('aria-expanded','false');
     link.setAttribute('aria-controls',`roster-${index}`);
     const rosterRow = element('tr','roster-row');
     rosterRow.id = `roster-${index}`;
-    rosterRow.hidden = true;
+    rosterRow.hidden = !expanded.has(player.username);
+    link.setAttribute('aria-expanded',String(!rosterRow.hidden));
     const cell = element('td'); cell.colSpan = 3;
     const panel = element('section','roster-panel');
     panel.setAttribute('aria-label',`${player.username}'s roster`);
     panel.append(element('h3','',`${player.username}’s roster`));
     if (player.rosterStatus === 'ok') {
+      panel.append(element('p','roster-note','Event points · before IGL bonuses'));
       const list = element('ul','roster-list');
       for (const member of player.roster) {
         const item = element('li');
-        item.append(element('strong','',member.name),element('span','', [member.team,member.isIgl ? 'IGL' : '',member.isStarter ? '' : 'Bench'].filter(Boolean).join(' · ')));
+        const heading = element('div','roster-player-heading');
+        const points = Number.isFinite(member.points) ? `${number.format(member.points)} pts` : '—';
+        heading.append(element('strong','',member.name),element('strong','roster-points',points));
+        item.append(heading,element('span','', [member.team,member.isIgl ? 'IGL' : '',member.isStarter ? '' : 'Bench'].filter(Boolean).join(' · ')));
         list.append(item);
       }
       panel.append(list);
@@ -79,20 +86,21 @@ function render(data) {
   const stale = inWindow && minute >= 330 && Date.now()-date.getTime() > 90*60*1000;
   $('status').textContent = stale ? 'Scores haven’t updated recently. Showing the last successful update.' : !inWindow ? 'Updates resume at 4 a.m. CDT. Showing the latest published scores.' : !players.length ? 'No managers added yet.' : scored.length < players.length ? 'Some managers are not listed for this event yet.' : '';
 }
-async function refresh(manual = false) {
-  $('refresh').disabled = true;
-  $('refresh').setAttribute('aria-busy','true');
+async function refresh() {
   try {
     const response = await fetch(`./leaderboard.json?t=${Date.now()}`, {cache:'no-store'});
     if (!response.ok) throw new Error('Snapshot unavailable');
     const data = await response.json();
     if (!Array.isArray(data.players) || !data.event?.name || !Number.isFinite(Date.parse(data.updatedAt))) throw new Error('Invalid snapshot');
     render(data);
-    if(manual && !$('status').textContent) $('status').textContent = 'You’re viewing the latest published scores.';
   } catch(error) {
-    $('status').textContent = snapshot ? 'Couldn’t refresh. Your last loaded scores are still shown.' : 'Couldn’t load scores. Check your connection and try Refresh.';
+    $('status').textContent = snapshot ? 'Couldn’t refresh. Your last loaded scores are still shown.' : 'Couldn’t load scores. Check your connection and reload the page.';
     if(!snapshot) { $('event-name').textContent = 'Event unavailable'; $('updated').textContent = 'Waiting for scores'; }
-  } finally { $('refresh').disabled = false; $('refresh').removeAttribute('aria-busy'); }
+  }
 }
-$('refresh').addEventListener('click',()=>refresh(true));
 refresh();
+setInterval(() => {
+  const cdt = new Date(Date.now()-5*60*60*1000);
+  const minute = cdt.getUTCHours()*60+cdt.getUTCMinutes();
+  if (!document.hidden && minute >= 240 && minute <= 720) refresh();
+}, 30*60*1000);

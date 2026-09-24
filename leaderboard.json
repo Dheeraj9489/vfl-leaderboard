@@ -4,7 +4,7 @@
     "id": 11,
     "name": "VCT 2026 : Champions Shanghai"
   },
-  "updatedAt": "2026-09-24T03:30:33.840Z",
+  "updatedAt": "2026-09-24T12:21:28.494Z",
   "players": [
     {
       "username": "snipper19",
@@ -14,36 +14,42 @@
       "roster": [
         {
           "name": "Asuna",
+          "points": 0,
           "team": "100T",
           "isIgl": true,
           "isStarter": true
         },
         {
           "name": "brawk",
+          "points": 0,
           "team": "NRG",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "yetujey",
+          "points": 0,
           "team": "FUT",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "nobody",
+          "points": 0,
           "team": "EDG",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "bang",
+          "points": 0,
           "team": "100T",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "dos9",
+          "points": 0,
           "team": "KC",
           "isIgl": false,
           "isStarter": true
@@ -53,42 +59,48 @@
     },
     {
       "username": "xyvalt",
-      "points": 0,
+      "points": 12,
       "status": "ok",
       "teamUrl": "https://www.valorantfantasyleague.net/team/56056",
       "roster": [
         {
           "name": "erde",
+          "points": 0,
           "team": "LOUD",
           "isIgl": true,
           "isStarter": true
         },
         {
           "name": "Ethan",
+          "points": 0,
           "team": "NRG",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "d4v41",
+          "points": 12,
           "team": "PRX",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "Dambi",
+          "points": 0,
           "team": "NS",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "BerLIN",
+          "points": 0,
           "team": "JDG",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "bang",
+          "points": 0,
           "team": "100T",
           "isIgl": false,
           "isStarter": true
@@ -98,42 +110,48 @@
     },
     {
       "username": "tekkers4270",
-      "points": 0,
+      "points": 7,
       "status": "ok",
       "teamUrl": "https://www.valorantfantasyleague.net/team/56133",
       "roster": [
         {
           "name": "jawgemo",
+          "points": 0,
           "team": "G2",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "skuba",
+          "points": 0,
           "team": "NRG",
           "isIgl": true,
           "isStarter": true
         },
         {
           "name": "Ethan",
+          "points": 0,
           "team": "NRG",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "f0rsakeN",
+          "points": 7,
           "team": "PRX",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "erde",
+          "points": 0,
           "team": "LOUD",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "trent",
+          "points": 0,
           "team": "G2",
           "isIgl": false,
           "isStarter": true
@@ -143,42 +161,48 @@
     },
     {
       "username": "baljeettj",
-      "points": 0,
+      "points": 43,
       "status": "ok",
       "teamUrl": "https://www.valorantfantasyleague.net/team/56251",
       "roster": [
         {
           "name": "something",
+          "points": 18,
           "team": "PRX",
           "isIgl": true,
           "isStarter": true
         },
         {
           "name": "vora",
+          "points": 0,
           "team": "100T",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "skuba",
+          "points": 0,
           "team": "NRG",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "Ethan",
+          "points": 0,
           "team": "NRG",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "SUYGETSU",
+          "points": 0,
           "team": "KC",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "f0rsakeN",
+          "points": 7,
           "team": "PRX",
           "isIgl": false,
           "isStarter": true
@@ -196,42 +220,48 @@
     },
     {
       "username": "ninpenguinn",
-      "points": 0,
+      "points": 22,
       "status": "ok",
       "teamUrl": "https://www.valorantfantasyleague.net/team/56288",
       "roster": [
         {
           "name": "kamo",
+          "points": 8,
           "team": "TL",
           "isIgl": true,
           "isStarter": true
         },
         {
           "name": "Sayonara",
+          "points": 0,
           "team": "VIT",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "Smoggy",
+          "points": 0,
           "team": "EDG",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "CHICHOO",
+          "points": 0,
           "team": "EDG",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "Erv",
+          "points": 0,
           "team": "TYL",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "nAts",
+          "points": 6,
           "team": "TL",
           "isIgl": false,
           "isStarter": true
@@ -241,42 +271,48 @@
     },
     {
       "username": "quali_tea_boba",
-      "points": 0,
+      "points": 12,
       "status": "ok",
       "teamUrl": "https://www.valorantfantasyleague.net/team/56268",
       "roster": [
         {
           "name": "Dambi",
+          "points": 0,
           "team": "NS",
           "isIgl": true,
           "isStarter": true
         },
         {
           "name": "trent",
+          "points": 0,
           "team": "G2",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "bang",
+          "points": 0,
           "team": "100T",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "d4v41",
+          "points": 12,
           "team": "PRX",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "Ethan",
+          "points": 0,
           "team": "NRG",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "Kr1stal",
+          "points": 0,
           "team": "GE",
           "isIgl": false,
           "isStarter": true
@@ -286,42 +322,48 @@
     },
     {
       "username": "scarlizar",
-      "points": 0,
+      "points": 43,
       "status": "ok",
       "teamUrl": "https://www.valorantfantasyleague.net/team/56298",
       "roster": [
         {
           "name": "something",
+          "points": 18,
           "team": "PRX",
           "isIgl": true,
           "isStarter": true
         },
         {
           "name": "nobody",
+          "points": 0,
           "team": "EDG",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "bang",
+          "points": 0,
           "team": "100T",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "skuba",
+          "points": 0,
           "team": "NRG",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "f0rsakeN",
+          "points": 7,
           "team": "PRX",
           "isIgl": false,
           "isStarter": true
         },
         {
           "name": "Munchkin",
+          "points": 0,
           "team": "T1",
           "isIgl": false,
           "isStarter": true
@@ -331,11 +373,54 @@
     },
     {
       "username": "ironman2304",
-      "points": null,
-      "status": "not-found",
-      "teamUrl": null,
-      "roster": [],
-      "rosterStatus": "no-link"
+      "points": 0,
+      "status": "ok",
+      "teamUrl": "https://www.valorantfantasyleague.net/team/56320",
+      "roster": [
+        {
+          "name": "ZmjjKK",
+          "points": 0,
+          "team": "EDG",
+          "isIgl": true,
+          "isStarter": true
+        },
+        {
+          "name": "brawk",
+          "points": 0,
+          "team": "NRG",
+          "isIgl": false,
+          "isStarter": true
+        },
+        {
+          "name": "bang",
+          "points": 0,
+          "team": "100T",
+          "isIgl": false,
+          "isStarter": true
+        },
+        {
+          "name": "Meteor",
+          "points": 0,
+          "team": "T1",
+          "isIgl": false,
+          "isStarter": true
+        },
+        {
+          "name": "stax",
+          "points": 0,
+          "team": "T1",
+          "isIgl": false,
+          "isStarter": true
+        },
+        {
+          "name": "SiuFatBB",
+          "points": 0,
+          "team": "TYL",
+          "isIgl": false,
+          "isStarter": true
+        }
+      ],
+      "rosterStatus": "ok"
     }
   ]
 }

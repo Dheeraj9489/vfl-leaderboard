@@ -45,7 +45,7 @@ Click **Commit changes** to save on `main`. The workflow fetches scores and repu
 ## Updates and reliability
 
 - GitHub Actions fetches fresh scores every 30 minutes from 4 a.m. through noon CDT (UTC−5), including a final noon update, on pushes to `main`, and on manual runs. Scheduled runs can be delayed by GitHub; this is not a real-time feed.
-- The page's Refresh button reloads the latest published snapshot. It does not trigger an Action or query VFL directly.
+- The page loads the latest snapshot on opening, and rechecks every 30 minutes while visible during 4 a.m.–noon CDT. There is no Refresh button.
 - The last successful deployment stays online if VFL is unavailable or its response format changes. The page shows a warning during the update window when the snapshot is over 90 minutes old. Inspect failed runs in **Actions**.
 - GitHub may disable scheduled workflows in public repositories after 60 days without repository activity. Re-enable the workflow in Actions if needed.
 - Only usernames, point totals, event name/ID, and update time are published. No account login or VFL credentials are used.
@@ -90,3 +90,5 @@ Click a manager’s name to expand their roster on the leaderboard. Add a profil
 Replace REPLACE_WITH_ID with the numeric ID from the actual profile. Omit unknown links or use null. Keep adding usernames to `usernames` as before. Saving changes triggers a deployment. Missing or temporarily unavailable rosters do not stop score updates. Rosters and scores refresh together.
 
 The automatic schedule uses fixed CDT (UTC−5), as requested, rather than changing with winter Central Standard Time. Pushes and manual workflow runs can still update and deploy outside the scheduled window.
+
+Roster points are each player’s total event fantasy points from VFL, before manager-specific IGL bonuses. They are not a reconstruction of the manager’s total after transfers and historical lineup changes. Missing point data displays a dash.
