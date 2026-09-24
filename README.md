@@ -1,6 +1,6 @@
 # Friends League — Valorant fantasy leaderboard
 
-A mobile-first leaderboard for snipper19, xyvalt, tekkers4270, and baljeettj. Plain HTML/CSS/JavaScript, no dependencies, no API keys. Real VFL event totals; ties share a rank. Missing users show a dash, never a made-up zero.
+A mobile-first leaderboard for friends that want to do valorant fantasy league. Plain HTML/CSS/JavaScript, no dependencies, no API keys. Real VFL event totals; ties share a rank. Missing users show a dash, never a made-up zero.
 
 ## Deploy to GitHub Pages
 
