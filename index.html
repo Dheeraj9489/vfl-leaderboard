@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10171e">
+  <meta name="description" content="Our friends. Our fantasy standings. A small Valorant fantasy league leaderboard.">
+  <title>The Friends League · Valorant Fantasy</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2310171e'/%3E%3Cpath d='M7 8h6v11h12v6H7z' fill='%23d6ff62'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="masthead"><a class="brand" href="./" aria-label="Friends League home"><span class="brandmark" aria-hidden="true">FL<span>↗</span></span><span>FRIENDS LEAGUE<br><small>VALORANT FANTASY</small></span></a><span class="edition">EST. 2026</span></header>
+    <section class="intro" aria-labelledby="title"><div class="eyebrow">THE GROUP CHAT, RANKED.</div><h1 id="title">The Friends<br><span>League.</span></h1><p>Same game. Personal stakes.</p></section>
+    <section class="event" aria-label="Selected event"><div><span class="label">CURRENT EVENT · TOTAL POINTS</span><h2 id="event-name">Loading event…</h2></div><span class="event-mark" aria-hidden="true">VCT<span> / </span></span></section>
+    <section class="standings" aria-labelledby="standings-title">
+      <div class="section-heading"><h2 id="standings-title">The standings <span id="player-count"></span></h2><button id="refresh" type="button"><span aria-hidden="true">↻</span> Refresh</button></div>
+      <div id="status" role="status" aria-live="polite">Loading the latest scores…</div>
+      <div class="table-wrap"><table><caption class="sr-only">Friends ranked by total fantasy points. Equal scores share a rank.</caption><thead><tr><th scope="col">RANK</th><th scope="col">MANAGER</th><th scope="col" class="points">POINTS</th></tr></thead><tbody id="rows"></tbody></table></div>
+      <p id="tie-note" class="tie-note" hidden>All square. The next points will decide who takes the lead.</p>
+      <div class="update-bar"><span id="updated">Checking scores</span><span>30-MIN UPDATES</span></div>
+    </section>
+    <footer><p>A little friendly competition.</p><a href="https://www.valorantfantasyleague.net/leaderboard" target="_blank" rel="noopener noreferrer">Full VFL leaderboard <span aria-hidden="true">↗</span></a><small>Unofficial friends leaderboard · Scores from VFL</small></footer>
+  </main>
+</body>
+</html>

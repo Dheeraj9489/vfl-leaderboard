@@ -1,0 +1,30 @@
+{
+  "name": "The Friends League",
+  "event": {
+    "id": 11,
+    "name": "VCT 2026 : Champions Shanghai"
+  },
+  "updatedAt": "2026-09-23T22:05:56.603Z",
+  "players": [
+    {
+      "username": "snipper19",
+      "points": 0,
+      "status": "ok"
+    },
+    {
+      "username": "xyvalt",
+      "points": 0,
+      "status": "ok"
+    },
+    {
+      "username": "tekkers4270",
+      "points": 0,
+      "status": "ok"
+    },
+    {
+      "username": "baljeettj",
+      "points": 0,
+      "status": "ok"
+    }
+  ]
+}
