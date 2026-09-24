@@ -91,4 +91,4 @@ Replace REPLACE_WITH_ID with the numeric ID from the actual profile. Omit unknow
 
 The automatic schedule uses fixed CDT (UTC−5), as requested, rather than changing with winter Central Standard Time. Pushes and manual workflow runs can still update and deploy outside the scheduled window.
 
-Roster points are each player’s total event fantasy points from VFL, before manager-specific IGL bonuses. They are not a reconstruction of the manager’s total after transfers and historical lineup changes. Missing point data displays a dash.
+Roster points show each player’s event fantasy points from VFL, including the 2x multiplier for designated IGL players. Missing point data displays a dash.
