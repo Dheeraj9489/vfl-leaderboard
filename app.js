@@ -51,7 +51,7 @@ function render(data) {
         const heading = element('div','roster-player-heading');
         const points = Number.isFinite(member.points) ? `${number.format(member.points)} pts` : '—';
         heading.append(element('strong','',member.name),element('strong','roster-points',points));
-        item.append(heading,element('span','', [member.team, member.isIgl ? 'IGL' : '', member.isStarter ? '' : 'Bench'].filter(Boolean).join(' · ')));
+        item.append(heading,element('span','', [member.team, member.isIgl ? 'IGL (2x)' : '', member.isStarter ? '' : 'Bench'].filter(Boolean).join(' · ')));
         list.append(item);
       }
       panel.append(list);
