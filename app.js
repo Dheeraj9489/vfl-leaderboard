@@ -45,14 +45,13 @@ function render(data) {
     panel.setAttribute('aria-label',`${player.username}'s roster`);
     panel.append(element('h3','',`${player.username}’s roster`));
     if (player.rosterStatus === 'ok') {
-      panel.append(element('p','roster-note','Event points · before IGL bonuses'));
       const list = element('ul','roster-list');
       for (const member of player.roster) {
-        const item = element('li');
+        const item = element('li', member.isIgl ? 'is-igl' : '');
         const heading = element('div','roster-player-heading');
         const points = Number.isFinite(member.points) ? `${number.format(member.points)} pts` : '—';
         heading.append(element('strong','',member.name),element('strong','roster-points',points));
-        item.append(heading,element('span','', [member.team,member.isIgl ? 'IGL' : '',member.isStarter ? '' : 'Bench'].filter(Boolean).join(' · ')));
+        item.append(heading,element('span','', [member.team, member.isIgl ? 'IGL' : '', member.isStarter ? '' : 'Bench'].filter(Boolean).join(' · ')));
         list.append(item);
       }
       panel.append(list);
@@ -69,7 +68,10 @@ function render(data) {
       rosterRow.hidden = !rosterRow.hidden;
       link.setAttribute('aria-expanded',String(!rosterRow.hidden));
     });
-    info.append(link, element('span','detail', !available ? 'Not on this event’s leaderboard' : player.points === best ? tied ? 'Tied for the lead' : 'Setting the pace' : `${number.format(best-player.points)} pts behind`));
+    info.append(link);
+    if (!available) {
+      info.append(element('span','detail','Not on this event’s leaderboard'));
+    }
     manager.append(avatar, info); managerCell.append(manager);
     row.append(rankCell,managerCell,element('td','points',available ? number.format(player.points) : '—'));
     return [row,rosterRow];
@@ -94,6 +96,7 @@ async function refresh() {
     if (!Array.isArray(data.players) || !data.event?.name || !Number.isFinite(Date.parse(data.updatedAt))) throw new Error('Invalid snapshot');
     render(data);
   } catch(error) {
+    console.error('Failed to load or render leaderboard:', error);
     $('status').textContent = snapshot ? 'Couldn’t refresh. Your last loaded scores are still shown.' : 'Couldn’t load scores. Check your connection and reload the page.';
     if(!snapshot) { $('event-name').textContent = 'Event unavailable'; $('updated').textContent = 'Waiting for scores'; }
   }
