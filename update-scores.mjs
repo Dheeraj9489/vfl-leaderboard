@@ -6,6 +6,9 @@ export function validateConfig(config) {
   if (!config || typeof config.name !== 'string' || !config.name.trim()) throw new Error('league.json needs a name.');
   if (!Array.isArray(config.usernames) || !config.usernames.length || config.usernames.some(u=>typeof u!=='string'||!u.trim())) throw new Error('Add at least one nonempty username to league.json.');
   if (config.eventId !== null && (!Number.isInteger(config.eventId) || config.eventId < 1)) throw new Error('eventId must be null (current event) or a positive integer.');
+  for (const url of Object.values(config.teamUrls || {})) {
+    if (url && !/^https:\/\/www\.valorantfantasyleague\.net\/team\/[1-9]\d*\/?$/.test(url)) throw new Error('teamUrls must contain VFL team profile URLs.');
+  }
   return {...config, usernames: [...new Set(config.usernames.map(u=>u.trim().toLowerCase()))]};
 }
 export async function getJSON(endpoint) {
@@ -46,6 +49,24 @@ export async function collectScores(input, get = getJSON) {
     if(!match) throw new Error(`Exact username ${username} was not found near its reported position. Refusing to publish another user's points.`);
     if(!Number.isFinite(match.totalPoints)) throw new Error(`Invalid points for ${username}.`);
     players.push({username,points:match.totalPoints,status:'ok'});
+  }
+  for (const player of players) {
+    const teamUrl = config.teamUrls?.[player.username] || null;
+    player.teamUrl = teamUrl;
+    player.roster = [];
+    player.rosterStatus = teamUrl ? 'unavailable' : 'no-link';
+    if (!teamUrl) continue;
+    const userId = new URL(teamUrl).pathname.split('/').filter(Boolean).at(-1);
+    try {
+      const team = await get(`/api/fantasyteam/team?userId=${userId}&eventId=${event.id}`);
+      if (!Array.isArray(team?.players)) throw new Error('Unexpected roster response');
+      player.roster = team.players.map(p => {
+        const name = p.eventPlayer?.player?.name;
+        if (typeof name !== 'string' || !name.trim()) throw new Error('Missing player name');
+        return {name, team:p.eventPlayer?.team?.shortName || '', isIgl:p.isIgl === true, isStarter:p.isStarter === true};
+      });
+      player.rosterStatus = player.roster.length ? 'ok' : 'empty';
+    } catch (error) { console.warn(`Roster unavailable for ${player.username}: ${error.message}`); }
   }
   return {name:config.name,event:{id:event.id,name:event.name},updatedAt:new Date().toISOString(),players};
 }

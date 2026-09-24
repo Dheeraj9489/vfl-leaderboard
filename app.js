@@ -17,7 +17,7 @@ function render(data) {
   const scored = players.filter(p => Number.isFinite(p.points));
   const best = scored[0]?.points;
   let rank = 0, previous;
-  const rows = players.map((player, index) => {
+  const rows = players.flatMap((player, index) => {
     const available = Number.isFinite(player.points);
     if (available && player.points !== previous) rank = index + 1;
     previous = player.points;
@@ -30,22 +30,54 @@ function render(data) {
     const avatar = element('span','avatar',player.username.slice(0,2).toUpperCase());
     avatar.setAttribute('aria-hidden','true');
     const info = element('div','manager-text');
-    const link = element('a','username',player.username);
-    const url = new URL('https://www.valorantfantasyleague.net/leaderboard');
-    url.searchParams.set('search',player.username); url.searchParams.set('exact','true');
-    link.href = url; link.target = '_blank'; link.rel = 'noopener noreferrer';
+    const link = element('button','username roster-toggle',player.username);
+    link.type = 'button';
+    link.setAttribute('aria-expanded','false');
+    link.setAttribute('aria-controls',`roster-${index}`);
+    const rosterRow = element('tr','roster-row');
+    rosterRow.id = `roster-${index}`;
+    rosterRow.hidden = true;
+    const cell = element('td'); cell.colSpan = 3;
+    const panel = element('section','roster-panel');
+    panel.setAttribute('aria-label',`${player.username}'s roster`);
+    panel.append(element('h3','',`${player.username}’s roster`));
+    if (player.rosterStatus === 'ok') {
+      const list = element('ul','roster-list');
+      for (const member of player.roster) {
+        const item = element('li');
+        item.append(element('strong','',member.name),element('span','', [member.team,member.isIgl ? 'IGL' : '',member.isStarter ? '' : 'Bench'].filter(Boolean).join(' · ')));
+        list.append(item);
+      }
+      panel.append(list);
+    } else {
+      panel.append(element('p','',player.rosterStatus === 'no-link' || !player.teamUrl ? 'Team link hasn’t been added yet.' : player.rosterStatus === 'empty' ? 'No players in this roster yet.' : 'Roster is temporarily unavailable. Check their VFL profile.'));
+    }
+    if (player.teamUrl && /^https:\/\/www\.valorantfantasyleague\.net\/team\/\d+\/?$/.test(player.teamUrl)) {
+      const source = element('a','roster-source','View team on VFL ↗');
+      source.href = player.teamUrl; source.target = '_blank'; source.rel = 'noopener noreferrer';
+      panel.append(source);
+    }
+    cell.append(panel); rosterRow.append(cell);
+    link.addEventListener('click',()=>{
+      rosterRow.hidden = !rosterRow.hidden;
+      link.setAttribute('aria-expanded',String(!rosterRow.hidden));
+    });
     info.append(link, element('span','detail', !available ? 'Not on this event’s leaderboard' : player.points === best ? tied ? 'Tied for the lead' : 'Setting the pace' : `${number.format(best-player.points)} pts behind`));
     manager.append(avatar, info); managerCell.append(manager);
     row.append(rankCell,managerCell,element('td','points',available ? number.format(player.points) : '—'));
-    return row;
+    return [row,rosterRow];
   });
   $('rows').replaceChildren(...rows);
   $('tie-note').hidden = !(scored.length > 1 && scored.length === players.length && scored.every(p => p.points === best));
   const date = new Date(data.updatedAt);
   $('updated').textContent = `Updated ${date.toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})}`;
   $('updated').title = date.toString();
-  const stale = Date.now()-date.getTime() > 90*60*1000;
-  $('status').textContent = stale ? 'Scores haven’t updated recently. Showing the last successful update.' : !players.length ? 'No managers added yet.' : scored.length < players.length ? 'Some managers are not listed for this event yet.' : '';
+  // Fixed CDT (UTC-5), matching the scheduled workflow.
+  const cdt = new Date(Date.now()-5*60*60*1000);
+  const minute = cdt.getUTCHours()*60+cdt.getUTCMinutes();
+  const inWindow = minute >= 240 && minute <= 720;
+  const stale = inWindow && minute >= 330 && Date.now()-date.getTime() > 90*60*1000;
+  $('status').textContent = stale ? 'Scores haven’t updated recently. Showing the last successful update.' : !inWindow ? 'Updates resume at 4 a.m. CDT. Showing the latest published scores.' : !players.length ? 'No managers added yet.' : scored.length < players.length ? 'Some managers are not listed for this event yet.' : '';
 }
 async function refresh(manual = false) {
   $('refresh').disabled = true;

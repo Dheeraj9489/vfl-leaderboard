@@ -44,9 +44,9 @@ Click **Commit changes** to save on `main`. The workflow fetches scores and repu
 
 ## Updates and reliability
 
-- GitHub Actions fetches fresh scores at minutes 17 and 47 each hour, on pushes to `main`, and on manual runs. Scheduled runs can be delayed by GitHub; this is not a real-time feed.
+- GitHub Actions fetches fresh scores every 30 minutes from 4 a.m. through noon CDT (UTC−5), including a final noon update, on pushes to `main`, and on manual runs. Scheduled runs can be delayed by GitHub; this is not a real-time feed.
 - The page's Refresh button reloads the latest published snapshot. It does not trigger an Action or query VFL directly.
-- The last successful deployment stays online if VFL is unavailable or its response format changes. The page shows a warning when the snapshot is over 90 minutes old. Inspect failed runs in **Actions**.
+- The last successful deployment stays online if VFL is unavailable or its response format changes. The page shows a warning during the update window when the snapshot is over 90 minutes old. Inspect failed runs in **Actions**.
 - GitHub may disable scheduled workflows in public repositories after 60 days without repository activity. Re-enable the workflow in Actions if needed.
 - Only usernames, point totals, event name/ID, and update time are published. No account login or VFL credentials are used.
 - These are VFL's public website endpoints, not a guaranteed or versioned API. Changes upstream may require updating `update-scores.mjs`.
@@ -75,3 +75,18 @@ Open http://localhost:4173. Use an HTTP server; opening index.html directly bloc
 Data source: https://www.valorantfantasyleague.net/leaderboard
 
 Independent fan project; not affiliated with VFL or Riot Games.
+
+## Roster links
+
+Click a manager’s name to expand their roster on the leaderboard. Add a profile link in the `teamUrls` object in `league.json`, for example:
+
+```json
+"teamUrls": {
+  "snipper19": "https://www.valorantfantasyleague.net/team/56047",
+  "patricka": "https://www.valorantfantasyleague.net/team/REPLACE_WITH_ID"
+}
+```
+
+Replace REPLACE_WITH_ID with the numeric ID from the actual profile. Omit unknown links or use null. Keep adding usernames to `usernames` as before. Saving changes triggers a deployment. Missing or temporarily unavailable rosters do not stop score updates. Rosters and scores refresh together.
+
+The automatic schedule uses fixed CDT (UTC−5), as requested, rather than changing with winter Central Standard Time. Pushes and manual workflow runs can still update and deploy outside the scheduled window.
